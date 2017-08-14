@@ -1,5 +1,6 @@
 package com.codepath.simpletodo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.apache.commons.io.FileUtils;
 
@@ -35,6 +37,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupListViewListener() {
+        lvItems.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter,
+                                                   View item, int pos, long id) {
+                        Intent i = new Intent(MainActivity.this, EditItemActivity.class);
+                        String selected = ((TextView) item).getText().toString();
+                        i.putExtra("todo", selected);
+                        startActivity(i);
+                    }
+                });
         lvItems.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
                     @Override
